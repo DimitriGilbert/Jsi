@@ -12,6 +12,7 @@
     "creation",
     "manipulation"
   ],
+  "moduleType":"globals",
   "license": "MIT",
   "ignore": [
     "**/.*",
