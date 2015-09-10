@@ -82,6 +82,48 @@ Jsi.append = function (parent, elt) {
 };
 
 /**
+* append an element before another
+* @param elt mixed the element to append to or its id
+* @param n_elt mixed DOMElement or template object to append to parent
+* @return object DOMElement
+*/
+Jsi.appendBefore = function (elt, n_elt) {
+	if (n_elt.tag !== undefined) {
+		n_elt = this.elt(n_elt);
+	}
+	if (typeof elt != 'object') {
+		elt = this.docelid(elt);
+	}
+
+	elt.parentNode.insertBefore(n_elt, elt);
+
+	n_elt = null;
+
+	return elt;
+};
+
+/**
+* append an element after another
+* @param elt mixed the element to append to or its id
+* @param n_elt mixed DOMElement or template object to append to parent
+* @return object DOMElement
+*/
+Jsi.appendAfter = function (elt, n_elt) {
+	if (n_elt.tag !== undefined) {
+		n_elt = this.elt(n_elt);
+	}
+	if (typeof elt != 'object') {
+		elt = this.docelid(elt);
+	}
+
+	elt.parentNode.insertBefore(n_elt, elt.nextSibling);
+
+	n_elt = null;
+
+	return elt;
+};
+
+/**
 * append an element to a parent as its first child
 * @param parent mixed the element to append to or its id
 * @param elt mixed DOMElement or template object to append to parent
