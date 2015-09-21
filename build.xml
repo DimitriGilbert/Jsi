@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Jsi" default="build">
+    <target name="build" depends="clean,bower,prepare,lint,karma" description=""/>
+
+    <target name="clean" unless="clean.done" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/coverage"/>
+        <delete dir="${basedir}/build/logs"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="bower" description="Update dependencies with bower">
+        <exec executable="bower">
+            <arg value="update"/>
+        </exec>
+    </target>
+
+    <target name="prepare" unless="prepare.done" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/coverage"/>
+        <mkdir dir="${basedir}/build/logs"/>
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <target name="lint" depends="prepare" description="Perform syntax check of sourcecode files">
+        <exec executable="jshint" output="${basedir}/build/logs/checkstyle.xml">
+            <arg value="${basedir}/js" />
+            <arg value="--reporter=checkstyle" />
+        </exec>
+    </target>
+
+    <target name="karma" description="run unit test">
+        <exec executable="karma">
+            <arg value="start"/>
+            <arg value="${basedir}/build/karma.js"/>
+        </exec>
+    </target>
+</project>
