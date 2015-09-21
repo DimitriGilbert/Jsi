@@ -15,9 +15,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../bower_components/Jsi/js/jsi.js',
-      '../js/FormR.js',
-      '../js/Group.js',
       '../js/**/*.js',
       '../tests/**/*.js'
     ],
