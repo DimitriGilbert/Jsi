@@ -1,0 +1,4 @@
+bower_components/
+build/logs/
+build/coverage/
+build/documentation/
