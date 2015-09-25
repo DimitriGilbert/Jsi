@@ -61,6 +61,15 @@ Jsi.doceleq = function (query) {
 };
 
 /**
+* document.querySelector shorcut
+* @param query string the selector
+* @return mixed object DOMElement or array of object DOMElement
+*/
+Jsi.doceleqFirst = function (query) {
+	return document.querySelector(query);
+};
+
+/**
 * append an element to a parent
 * @param parent mixed the element to append to or its id
 * @param elt mixed DOMElement or template object to append to parent
