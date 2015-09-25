@@ -1,7 +1,11 @@
+/**
+ * @constructor
+ */
 var Jsi = {};
 
 /**
 * element already created as cloning is faster than creating
+* @var
 */
 Jsi.created = {};
 
@@ -38,8 +42,8 @@ Jsi.animationEvent  = function(){
 
 /**
 * document.getElementById shorcut
-* @param id string the element id
-* @return object DOMElement
+* @param {string} id the element id
+* @return {object} DOMElement
 */
 Jsi.docelid = function (id) {
 	return document.getElementById(id);
@@ -47,8 +51,8 @@ Jsi.docelid = function (id) {
 
 /**
 * document.querySelectorAll shorcut
-* @param query string the selector
-* @return mixed object DOMElement or array of object DOMElement
+* @param {string} query the selector
+* @return {DOMNodeList}
 */
 Jsi.doceleq = function (query) {
 	var res = document.querySelectorAll(query);
@@ -62,8 +66,8 @@ Jsi.doceleq = function (query) {
 
 /**
 * document.querySelector shorcut
-* @param query string the selector
-* @return mixed object DOMElement or array of object DOMElement
+* @param {string} query the selector
+* @return {DOMElement}
 */
 Jsi.doceleqFirst = function (query) {
 	return document.querySelector(query);
@@ -71,9 +75,9 @@ Jsi.doceleqFirst = function (query) {
 
 /**
 * append an element to a parent
-* @param parent mixed the element to append to or its id
-* @param elt mixed DOMElement or template object to append to parent
-* @return object DOMElement
+* @param {DOMElement|string} parent the element to append to or its id
+* @param {DOMElement|object} elt or template object to append to parent
+* @return {DOMElement} object
 */
 Jsi.append = function (parent, elt) {
 	if (elt.tag !== undefined) {
