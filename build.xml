@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Jsi" default="build">
-    <target name="build" depends="clean,bower,prepare,lint" description=""/>
+    <target name="build" depends="clean,bower,prepare,lint,karma" description=""/>
 
     <target name="clean" unless="clean.done" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/coverage"/>
