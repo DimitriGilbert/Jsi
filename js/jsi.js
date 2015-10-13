@@ -96,8 +96,8 @@ Jsi.append = function (parent, elt) {
 
 /**
 * append an element before another
-* @param elt mixed the element to append to or its id
-* @param n_elt mixed DOMElement or template object to append to parent
+* @param {mixed} elt the element to append to or its id
+* @param {mixed} n_elt DOMElement or template object to append to parent
 * @return object DOMElement
 */
 Jsi.appendBefore = function (elt, n_elt) {
@@ -117,8 +117,8 @@ Jsi.appendBefore = function (elt, n_elt) {
 
 /**
 * append an element after another
-* @param elt mixed the element to append to or its id
-* @param n_elt mixed DOMElement or template object to append to parent
+* @param {mixed} elt the element to append to or its id
+* @param {mixed} n_elt DOMElement or template object to append to parent
 * @return object DOMElement
 */
 Jsi.appendAfter = function (elt, n_elt) {
@@ -138,8 +138,8 @@ Jsi.appendAfter = function (elt, n_elt) {
 
 /**
 * append an element to a parent as its first child
-* @param parent mixed the element to append to or its id
-* @param elt mixed DOMElement or template object to append to parent
+* @param {mixed} parent the element to append to or its id
+* @param {mixed} elt DOMElement or template object to append to parent
 * @return object DOMElement
 */
 Jsi.prepend = function (parent, elt) {
@@ -162,7 +162,9 @@ Jsi.prepend = function (parent, elt) {
 
 /**
 * replace an element
-* @return object DOMElement
+* @param {DOMElement} elt the element to be replaced
+* @param {DOMElement} n_elt the new element
+* @return {DOMElement} the parent node of the element
 */
 Jsi.replace = function (elt, n_elt) {
 	if (n_elt.tag !== undefined) {
@@ -182,7 +184,8 @@ Jsi.replace = function (elt, n_elt) {
 
 /**
 * create a text node
-* @param content string the content of the text node
+* @param {string} content the content of the text node
+* @return {DOMText}
 */
 Jsi.textNode = function(content){
 	return document.createTextNode(content);
@@ -190,8 +193,8 @@ Jsi.textNode = function(content){
 
 /**
 * create an element from a template object
-* @param c object the template object to be created
-* @return object DOMElement
+* @param {object} c the template object to be created
+* @return {DOMElement} object
 *<exemple>
 *{
 *	"tag":"type of element",
@@ -352,7 +355,11 @@ Jsi.elt = function(c) {
 
 	return elt;
 };
-
+/**
+ * create a DOMElement from a string
+ * @param  {strin} elt the string to be converted
+ * @return {DOMElement}
+ */
 Jsi.eltFromString = function (elt) {
 	var el = elt;
 	try{
@@ -367,9 +374,10 @@ Jsi.eltFromString = function (elt) {
 	return elt;
 };
 
-/*
+/**
 * destroy a Dom element
-* @param elt mixed id of the element or element itself
+* @param {mixed} elt id of the element or element itself
+* @return {DOMElement} the removed child element
 */
 Jsi.remove = function (elt) {
 	if (typeof elt != 'object') {
@@ -385,6 +393,7 @@ Jsi.remove = function (elt) {
 
 /**
 * empty Dom element from it's children.
+* @param {DOMElement} elt the element to empty
 */
 Jsi.empty = function (elt) {
 	if (typeof elt != 'object') {
