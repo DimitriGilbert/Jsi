@@ -251,7 +251,7 @@ class Jsi{
 		else{
 			// check if the element tag has already been created to clone it
 			if (!this.created.has(c.tag)) {
-				this.created.set(c.tagdocument.createElement(c.tag));
+				this.created.set(c.tag, this.doc.createElement(c.tag));
 			}
 			elt = this.created.get(c.tag).cloneNode();
 			
