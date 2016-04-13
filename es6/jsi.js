@@ -375,7 +375,7 @@ class Jsi{
 			if (elt.childNodes !== undefined) {
 				if (elt.childNodes.length >0) {
 					n_elt.append = [];
-					for (let i = elt.childNodes.length - 1; i >= 0; i--) {
+					for (let i = elt.childNodes.length - 1; i <= elt.childNodes.length - 1; i++) {
 						n_elt.append.push(this.reverseCreate(elt.childNodes.item(i)));
 					}
 				}
