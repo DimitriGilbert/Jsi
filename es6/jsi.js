@@ -10,6 +10,7 @@ class Jsi{
 		this.eltEvent.set('onclick', 'click');
 		this.eltEvent.set('onchange', 'change');
 		this.eltEvent.set('onfocus', 'focus');
+		this.eltEvent.set('onblur', 'blur');
 		this.eltEvent.set('onkeyup', 'keyup');
 		this.eltEvent.set('onkeypress', 'keypress');
 		this.eltEvent.set('onsubmit', 'submit');
@@ -33,6 +34,38 @@ class Jsi{
 		this.eltEvent.set('ontouchstart', 'touchstart');
 		this.eltEvent.set('ontouchmove', 'touchmove');
 		this.eltEvent.set('ontouchend', 'touchend');
+		this.eltEvent.set('ondrag', 'drag');
+		this.eltEvent.set('ondragend', 'dragend');
+		this.eltEvent.set('ondragenter', 'dragenter');
+		this.eltEvent.set('ondragleave', 'dragleave');
+		this.eltEvent.set('ondragover', 'dragover');
+		this.eltEvent.set('ondragstart', 'dragstart');
+		this.eltEvent.set('ondrop', 'drop');
+		this.eltEvent.set('oninput', 'input');
+		this.eltEvent.set('onloadstart', 'loadstart');
+		this.eltEvent.set('onprogress', 'progress');
+		this.eltEvent.set('onsuspend', 'suspend');
+		this.eltEvent.set('onabort', 'abort');
+		this.eltEvent.set('onerror', 'error');
+		this.eltEvent.set('onemptied', 'emptied');
+		this.eltEvent.set('onstalled', 'stalled');
+		this.eltEvent.set('onloadedmetadata', 'loadedmetadata');
+		this.eltEvent.set('onloadeddata', 'loadeddata');
+		this.eltEvent.set('oncanplay', 'canplay');
+		this.eltEvent.set('oncanplaythrough', 'canplaythrough');
+		this.eltEvent.set('onplaying', 'playing');
+		this.eltEvent.set('onwaiting', 'waiting');
+		this.eltEvent.set('onseeking', 'seeking');
+		this.eltEvent.set('onseeked', 'seeked');
+		this.eltEvent.set('onended', 'ended');
+		this.eltEvent.set('ondurationchange', 'durationchange');
+		this.eltEvent.set('ontimeupdate', 'timeupdate');
+		this.eltEvent.set('onplay', 'play');
+		this.eltEvent.set('onpause', 'pause');
+		this.eltEvent.set('onratechange', 'ratechange');
+		this.eltEvent.set('onresize', 'resize');
+		this.eltEvent.set('onvolumechange', 'volumechange');
+
 	}
 
 	/**
@@ -49,7 +82,7 @@ class Jsi{
 	* @return {DOMNodeList}
 	*/
 	query(query) {
-		var res = this.doc.querySelectorAll(query);
+		let res = this.doc.querySelectorAll(query);
 		if (res.length > 0) {
 			return res;
 		}
@@ -244,7 +277,7 @@ class Jsi{
 	*</exemple>
 	*/
 	create(c) {
-		var elt = null;
+		let elt = null;
 		if (c.isTextNode !== undefined) {
 			elt = this.textNode(c.content);
 		}
@@ -258,7 +291,7 @@ class Jsi{
 			// create element attribute
 			if(c.attr !== undefined)
 			{
-				for(var key in c.attr)
+				for(let key in c.attr)
 				{
 					// handle element event or certain specific attribute
 					if (this.eltEvent.has(key)) {
@@ -288,7 +321,7 @@ class Jsi{
 
 			// append elements if there are some 
 			if (c.append !== undefined) {
-				for (var ap in c.append) {
+				for (let ap in c.append) {
 					elt = this.append(elt, c.append[ap], true);
 				}
 			}
@@ -307,17 +340,53 @@ class Jsi{
 	}
 
 	eltFromString(elt) {
-		var el = elt;
+		let el = elt;
 		try{
 			elt = new Range().createContextualFragment(el);
 		}
 		catch(e){
-			var range = this.doc.createRange();
-			var div = this.doc.createElement('div');
+			let range = this.doc.createRange();
+			let div = this.doc.createElement('div');
 			range.selectNode(this.doc.getElementsByTagName("div").item(0));
 			elt = range.createContextualFragment(el);
 		}
 		return elt;
+	}
+
+	reverseCreate(elt){
+		let n_elt = {};
+
+		if (elt.nodeName === '#text') {
+			n_elt.isTextNode = true;
+			n_elt.content = elt.nodeValue;
+		}
+		else{
+			n_elt.tag = elt.nodeName.toLowerCase();
+			
+			if (elt.attributes !== undefined) {
+				if (elt.attributes.length >0) {
+					n_elt.attr = {};
+					for (let i = elt.attributes.length - 1; i >= 0; i--) {
+						n_elt.attr[elt.attributes.item(i).name] = elt.attributes.item(i).value;
+					}
+				}
+			}
+			
+			if (elt.childNodes !== undefined) {
+				if (elt.childNodes.length >0) {
+					n_elt.append = [];
+					for (let i = elt.childNodes.length - 1; i >= 0; i--) {
+						n_elt.append.push(this.reverseCreate(elt.childNodes.item(i)));
+					}
+				}
+			}
+		}
+
+		return n_elt;
+	}
+
+	reverseCreateFromString(elt){
+		return this.reverseCreate(this.eltFromString(elt));
 	}
 }
 
