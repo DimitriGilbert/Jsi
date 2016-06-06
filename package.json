@@ -1,0 +1,27 @@
+{
+  "name": "jsi",
+  "description": "Dom object creation/manipulation from json objects",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DimitriGilbert/Jsi.git"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "bower": "^1.7.9",
+    "browserify": "^13.0.1",
+    "eslint": "^2.11.1",
+    "gulp": "^3.9.1",
+    "jasmine-core": "^2.4.1",
+    "jsdoc": "^3.4.0",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-jenkins-reporter": "0.0.2",
+    "uglifyify": "^3.0.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

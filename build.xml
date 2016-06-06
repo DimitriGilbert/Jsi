@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Jsi" default="build">
-    <target name="build" depends="clean,bower,prepare,lint" description=""/>
+    <target name="build" depends="lint,karma,gulp,jsdoc" description=""/>
 
     <target name="clean" unless="clean.done" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/coverage"/>
         <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/documentation"/>
         <property name="clean.done" value="true"/>
-    </target>
-
-    <target name="bower" description="Update dependencies with bower">
-        <exec executable="bower">
-            <arg value="update"/>
-        </exec>
     </target>
 
     <target name="prepare" unless="prepare.done" depends="clean" description="Prepare for build">
         <mkdir dir="${basedir}/build/coverage"/>
         <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/documentation"/>
         <property name="prepare.done" value="true"/>
     </target>
 
-    <target name="lint" depends="prepare" description="Perform syntax check of sourcecode files">
-        <exec executable="jshint" output="${basedir}/build/logs/checkstyle.xml">
-            <arg value="${basedir}/js" />
-            <arg value="--reporter=checkstyle" />
+    <target name="npm" description="install npm modules">
+        <exec executable="npm">
+            <arg value="install"/>
+        </exec>
+    </target>
+    
+    <target name="bower" depends="npm" description="Update dependencies with bower">
+        <exec executable="${basedir}/node_modules/.bin/bower">
+            <arg value="update"/>
         </exec>
     </target>
 
-    <target name="karma" description="run unit test">
-        <exec executable="karma">
+    <target name="gulp" depends="npm,bower" description="run gulp build">
+        <exec executable="${basedir}/node_modules/.bin/gulp">
+            <arg value="build"/>
+        </exec>
+    </target>
+    
+    <target name="lint" depends="prepare,npm" description="Perform syntax check of sourcecode files">
+        <exec executable="${basedir}/node_modules/.bin/eslint" output="${basedir}/build/logs/checkstyle.xml">
+            <arg value="${basedir}/es6" />
+            <arg value="--format=checkstyle" />
+        </exec>
+    </target>
+
+    <target name="karma" depends="bower,npm" description="run unit test">
+        <exec executable="${basedir}/node_modules/.bin/karma">
             <arg value="start"/>
             <arg value="${basedir}/build/karma.js"/>
+        </exec>
+    </target>
+
+    <target name="jsdoc" depends="npm,prepare" description="create documentation">
+        <exec executable="${basedir}/node_modules/.bin/jsdoc">
+            <arg value="-r"/>
+            <arg value="-d"/>
+            <arg value="${basedir}/build/documentation"/>
+            <arg value="${basedir}/es6"/>
         </exec>
     </target>
 </project>
