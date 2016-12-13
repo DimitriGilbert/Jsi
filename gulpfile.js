@@ -6,10 +6,10 @@ var source = require('vinyl-source-stream');
 gulp.task('build', function () {
     var pack = browserify({
         entries: './es6/jsi.js',
-            extensions: ['.js'],
-            debug: true,
-            standalone:"Jsi"
-        })
+        extensions: ['.js'],
+        debug: true,
+        standalone:"Jsi"
+    })
         .transform('babelify', {
             presets: ['es2015']
         })

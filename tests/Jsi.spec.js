@@ -1,6 +1,7 @@
 describe("Jsi", function() {
-	it("document element select", function() {
-		expect(Jsi.docelid).toBeDefined();
+    it("document element select", function() {
+        var Jsi = new Jsi();
+		expect(Jsi.id).toBeDefined();
         expect(Jsi.doceleq).toBeDefined();
         expect(Jsi.doceleqFirst).toBeDefined();
         expect(typeof Jsi.docelid).toEqual('function');

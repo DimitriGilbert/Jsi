@@ -8,7 +8,7 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine'],
+        frameworks: ['browserify', 'jasmine'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -23,13 +23,13 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            '../es6/**/*.js': ['coverage']
+            '../es6/**/*.js': ['coverage', 'browserify']
         },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage', 'jenkins'],
+        reporters: ['progress', 'coverage'],
         
         coverageReporter: {
             dir: 'coverage',
@@ -66,7 +66,15 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['PhantomJS'],
+
+        browserify: {
+            extensions: ['.js'],
+            standalone:'Jsi',
+            debug: true,
+            transform: [['babelify', { presets: ['es2015']}]],
+            paths:['vendor','es6']
+        },
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
