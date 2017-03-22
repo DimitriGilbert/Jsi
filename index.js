@@ -1,2 +1,2 @@
-var Jsi = require('./es6/Jsi.js');
+var Jsi = require('./es6/jsi.js');
 module.exports = Jsi;
